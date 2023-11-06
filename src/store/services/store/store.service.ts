@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateStoreDto } from 'src/store/dto/dto/create-store.dto';
@@ -14,6 +18,7 @@ export class StoreService {
   ) {}
 
   async create(createStoreDto: CreateStoreDto, user: User) {
+    await this.findByStoreName(createStoreDto.storeName);
     return this.storeModel.create({
       user: user._id,
       ...createStoreDto,
@@ -85,11 +90,18 @@ export class StoreService {
       });
   }
 
-  private async findStoresByUser(user: User) {
+  async findStoresByUser(user: User) {
     const records = await this.storeModel.find({
       user: user._id,
     });
 
     return records;
+  }
+
+  private async findByStoreName(name: string) {
+    return this.storeModel.findOne({ storeName: name }).then((store) => {
+      if (store)
+        throw new ConflictException('Store with this name already exists');
+    });
   }
 }

@@ -20,18 +20,18 @@ export class CreateProductDto {
   @IsNumber()
   @IsNotEmpty()
   @Min(1, { message: 'Price cannot be less than 1' })
-  price: number;
+  price?: number;
 
   @IsNumber()
   @IsNotEmpty()
   @Min(1, { message: 'Quantity cannot be less than 1' })
-  quantity: number;
+  quantity?: number;
 
   @IsUrl()
   @IsOptional()
-  image: string;
+  image?: string;
 
   @IsMongoId()
   @IsNotEmpty()
-  storeId: string;
+  storeId?: string;
 }

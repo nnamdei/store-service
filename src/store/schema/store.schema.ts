@@ -36,7 +36,7 @@ export class Store {
 
   @Prop({
     enum: AccountStatus,
-    default: AccountStatus.INACTIVE,
+    default: AccountStatus.ACTIVE,
   })
   accountStatus?: AccountStatus;
 

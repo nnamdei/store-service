@@ -11,10 +11,10 @@ export class User {
   _id: Types.ObjectId;
 
   @Prop()
-  firstName: string;
+  firstName?: string;
 
   @Prop()
-  lastName: string;
+  lastName?: string;
 
   @Prop({
     required: true,
@@ -24,13 +24,13 @@ export class User {
     index: true,
     sparse: true,
   })
-  email: string;
+  email?: string;
 
   @Prop({ default: false })
   isEmailVerified?: boolean;
 
   @Prop({ select: false })
-  password: string;
+  password?: string;
 
   @Prop()
   phone?: string;
